@@ -1,0 +1,74 @@
+# MinAbsSum
+#### Given array of integers, find the lowest absolute sum of elements.
+
+For a given array A of N integers and a sequence S of N integers from the set {−1, 1}, we define val(A, S) as follows:
+
+    val(A, S) = |sum{ A[i]*S[i] for i = 0..N−1 }|
+
+(Assume that the sum of zero elements equals zero.)
+
+For a given array A, we are looking for such a sequence S that minimizes val(A,S).
+
+Write a function:
+
+    function solution(A);
+
+that, given an array A of N integers, computes the minimum value of val(A,S) from all possible values of val(A,S) for all possible sequences S of N integers from the set {−1, 1}.
+
+For example, given array:
+
+  A[0] =  1  
+  A[1] =  5  
+  A[2] =  2  
+  A[3] = -2  
+your function should return 0, since for S = [−1, 1, −1, 1], val(A, S) = 0, which is the minimum possible value.
+
+Write an **efficient** algorithm for the following assumptions:
+
+- N is an integer within the range [0..20,000];
+- each element of array A is an integer within the range [−100..100].
+
+```javascript
+function solution(A){
+    const N = A.length;
+    let sum = 0;
+    let max = 0;
+    for (let i = 0; i < N; i++){
+        A[i] = Math.abs(A[i]);
+        sum += A[i];
+        max = Math.max(max, A[i]);
+    }
+
+    const count = new Array(max+1).fill(0);
+    for (let i = 0; i < N; i++){
+        count[A[i]] += 1;
+    }
+    const dp = new Array(sum+1).fill(-1);
+    dp[0] = 0;
+
+    for (let a = 1; a < max + 1; a++){
+        if (count[a]){
+            for (let j = 0; j <= sum; j++){
+                if (dp[j] >= 0){
+                    dp[j] = count[a];
+                }else if (j >= a && dp[j -a] > 0){
+                    dp[j] = dp[j-a] - 1;
+                }
+            }
+        }
+    }
+
+    let result = sum;
+    const midPoint = Math.floor(sum/2);
+    for (let i = 0; i < midPoint + 1; i++){
+        if (dp[i] >= 0){
+            result = Math.min(result, sum - i * 2);
+        }
+    }
+
+    return result;
+}
+```
+
+### [Codility Report](https://app.codility.com/demo/results/trainingRE36EC-HMG/)
+
