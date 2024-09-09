@@ -10,4 +10,4 @@ Lesson 1 Iterations
 Lesson 2 Arrays
 
 - [CyclicRotation](https://github.com/jglchen/codility-solutions-javascript/blob/main/2-Arrays/cyclic-rotation.mdx)
-[OddOccurencesInArray](https://github.com/jglchen/codility-solutions-javascript/blob/main/2-Arrays/odd-occurences-in-array.mdx)
+- [OddOccurencesInArray](https://github.com/jglchen/codility-solutions-javascript/blob/main/2-Arrays/odd-occurences-in-array.mdx)
